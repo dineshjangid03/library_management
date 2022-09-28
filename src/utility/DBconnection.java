@@ -1,7 +1,9 @@
+package utility;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBConnection {
+public class DBconnection {
 	
 	public static Connection getConnection(){
 		Connection con=null;
