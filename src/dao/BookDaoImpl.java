@@ -37,4 +37,26 @@ public class BookDaoImpl implements BookDAO {
 		
 	}
 
+	@Override
+	public String removeBook(int id) {
+		String msg="Not Removed";
+		
+		try (Connection con=DBconnection.getConnection()){
+			
+			PreparedStatement ps=con.prepareStatement("delete from books where id=?");
+			ps.setInt(1, id);
+			
+			int x=ps.executeUpdate();
+			
+			if(x>0) {
+				msg="Book removed !";
+			}
+			
+		} catch (Exception e) {
+			msg=e.getMessage();
+		}
+
+		return msg;
+	}
+
 }

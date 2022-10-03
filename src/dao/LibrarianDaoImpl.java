@@ -38,4 +38,26 @@ public class LibrarianDaoImpl implements LibrarianDAO {
 		return message;
 	}
 
+	@Override
+	public String removeLibrarian(int id) {
+		String msg="Not Removed";
+		
+		try (Connection con=DBconnection.getConnection()){
+			
+			PreparedStatement ps=con.prepareStatement("delete from librarian where id=?");
+			ps.setInt(1, id);
+			
+			int x=ps.executeUpdate();
+			
+			if(x>0) {
+				msg="librarian removed !";
+			}
+			
+		} catch (Exception e) {
+			msg=e.getMessage();
+		}
+
+		return msg;
+	}
+
 }
