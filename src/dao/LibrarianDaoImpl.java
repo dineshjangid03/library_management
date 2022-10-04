@@ -2,8 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exception.LibrarianException;
 import model.Librarian;
 import utility.DBconnection;
 
@@ -58,6 +60,34 @@ public class LibrarianDaoImpl implements LibrarianDAO {
 		}
 
 		return msg;
+	}
+
+	@Override
+	public Librarian librarianByID(int id) throws LibrarianException {
+		Librarian librarian=null;
+		
+		try (Connection con=DBconnection.getConnection()){
+			
+			PreparedStatement ps=con.prepareStatement("select * from librarian where id=?");
+			
+			ps.setInt(1, id);
+			ResultSet rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				String name=rs.getString("name");
+				String email=rs.getString("email");
+				String password=rs.getString("password");
+				String mobile=rs.getString("mobile");
+				librarian=new Librarian(id, name, password, email, mobile);
+			}
+			else {
+				throw new LibrarianException("No Librarian with this ID");
+			}
+		} catch (SQLException e) {
+			throw new LibrarianException(e.getMessage());
+		}
+
+		return librarian;
 	}
 
 }
