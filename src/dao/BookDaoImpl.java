@@ -2,7 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import exception.BookException;
 import model.Book;
 import utility.DBconnection;
 
@@ -52,11 +55,41 @@ public class BookDaoImpl implements BookDAO {
 				msg="Book removed !";
 			}
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			msg=e.getMessage();
 		}
 
 		return msg;
+	}
+
+	@Override
+	public Book bookByID(int id) throws BookException{
+		Book book=null;
+		
+		try (Connection con=DBconnection.getConnection()){
+			
+			PreparedStatement ps=con.prepareStatement("select * from books where id=?");
+			
+			ps.setInt(1, id);
+			
+			ResultSet rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				String name=rs.getString("name");
+				String author=rs.getString("author");
+				String publisher=rs.getString("publisher");
+				int quantity=rs.getInt("quantity");
+				book=new Book(id, name, author, publisher, quantity);
+			}
+			else {
+				throw new BookException("Book not availabe with this id");
+			}
+			
+		} catch (SQLException e) {
+			throw new BookException(e.getMessage());
+		}
+
+		return book;
 	}
 
 }
