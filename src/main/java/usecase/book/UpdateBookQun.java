@@ -1,18 +1,14 @@
 package usecase.book;
 
-import com.entity.Book;
-
 import dao.BookDAO;
 import dao.BookDaoImpl;
 
-public class AddBook {
+public class UpdateBookQun {
 
 	public static void main(String[] args) {
-		
 		BookDAO b=new BookDaoImpl();
-		String res=b.addBook(new Book("java", "danny", "raj", 1));
+		String res=b.updateBookQuantity(1, 5);
 		System.out.println(res);
-
 	}
-
+	
 }

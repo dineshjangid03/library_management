@@ -1,9 +1,14 @@
 package com.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
@@ -15,6 +20,9 @@ public class Book {
 	private String author;
 	private String publisher;
 	private int quantity;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	List<Student> student=new ArrayList<>();
 	
 	public Book() {
 		
@@ -77,10 +85,12 @@ public class Book {
 		this.quantity = quantity;
 	}
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", bookName=" + bookName + ", author=" + author + ", publisher=" + publisher
-				+ ", quantity=" + quantity + "]";
+	public List<Student> getStudent() {
+		return student;
+	}
+
+	public void setStudent(List<Student> student) {
+		this.student = student;
 	}
 	
 	

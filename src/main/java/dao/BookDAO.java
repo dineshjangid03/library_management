@@ -13,5 +13,7 @@ public interface BookDAO {
 	public String removeBook(int id);
 	
 	public Book bookByID(int id) throws BookException;
+	
+	public String updateBookQuantity(int bookId, int newQuantity);
 
 }

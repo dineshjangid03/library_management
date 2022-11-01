@@ -1,9 +1,14 @@
 package com.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Student {
@@ -14,6 +19,9 @@ public class Student {
 	String name;
 	String address;
 	String mobile;
+	
+	@ManyToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	List<Book>books=new ArrayList<>();
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
@@ -65,10 +73,12 @@ public class Student {
 		this.mobile = mobile;
 	}
 
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", name=" + name + ", address=" + address + ", mobile=" + mobile
-				+ "]";
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 	
 	

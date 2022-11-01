@@ -67,4 +67,24 @@ public class BookDaoImpl implements BookDAO {
 		return book;
 	}
 
+	@Override
+	public String updateBookQuantity(int bookId, int newQuantity) {
+		String msg="not updated";
+		EntityManager em=EMutil.getEM();
+		Book book=em.find(Book.class, bookId);
+		
+		if(book==null) {
+			msg="book not found";
+		}
+		else {
+			em.getTransaction().begin();
+			book.setQuantity(book.getQuantity()+newQuantity);
+			msg="updated";
+			em.getTransaction().commit();
+		}
+		
+		em.close();
+		return msg;
+	}
+
 }
