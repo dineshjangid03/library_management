@@ -10,7 +10,7 @@ public class AddBook {
 	public static void main(String[] args) {
 		
 		BookDAO b=new BookDaoImpl();
-		String res=b.addBook(new Book("java", "danny", "raj", 1));
+		String res=b.addBook(new Book("java", "danny", "raj", 3));
 		System.out.println(res);
 
 	}

@@ -9,7 +9,7 @@ public class IssueBook {
 		
 		BookStudent bs=new BookStudentImpl();
 		
-		String res=bs.issueBook(2, 3);
+		String res=bs.issueBook(2, 1);
 		
 		System.out.println(res);
 

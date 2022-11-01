@@ -26,6 +26,9 @@ public class BookStudentImpl implements BookStudent{
 		else if(b.getQuantity()==0) {
 			msg="book quantity is 0";
 		}
+		else if(s.getBooks().contains(b)) {
+			msg="book already issued";
+		}
 		else {
 			em.getTransaction().begin();
 			s.getBooks().add(b);

@@ -2,6 +2,7 @@ package com.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -92,6 +93,26 @@ public class Book {
 	public void setStudent(List<Student> student) {
 		this.student = student;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(author, bookName, id, publisher);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		return Objects.equals(author, other.author) && Objects.equals(bookName, other.bookName) && id == other.id
+				&& Objects.equals(publisher, other.publisher);
+	}
+	
+	
 	
 	
 
